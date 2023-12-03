@@ -6,10 +6,17 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
+const mongoose = require("mongoose");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
+
+async function main() {
+  await mongoose.connect(process.env.MONGOURL);
+}
+
+main().catch((err) => console.log(err));
 
 const app = express();
 
