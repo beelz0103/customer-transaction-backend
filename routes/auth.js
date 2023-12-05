@@ -1,17 +1,27 @@
 const express = require("express");
 const { validateAccessToken } = require("../middleware/auth0.middleware");
-const Accounts = require("../models/accounts");
-const Transactions = require("../models/transactions");
-const Customers = require("../models/customers");
+const authController = require("../controllers/authController");
 
 const router = express.Router();
 
-router.get("/public", (req, res, next) => {
-  res.json("auth public");
+router.get("/customers", validateAccessToken, async (req, res, next) => {
+  await authController.customers(req, res, next);
 });
 
-router.get("/protected", validateAccessToken, async (req, res, next) => {
-  res.json("auth protected");
+router.get("/accounts", validateAccessToken, async (req, res, next) => {
+  await authController.accounts(req, res, next);
 });
+
+router.get("/transactions", validateAccessToken, async (req, res, next) => {
+  await authController.transactions(req, res, next);
+});
+
+router.get(
+  "/accounts/products",
+  validateAccessToken,
+  async (req, res, next) => {
+    await authController.products(req, res, next);
+  }
+);
 
 module.exports = router;
