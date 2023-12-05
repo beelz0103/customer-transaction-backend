@@ -13,7 +13,7 @@ const CustomerSchema = new Schema(
     accounts: [Number],
     tier_and_details: Object,
   },
-  { collection: "transactions" }
+  { collection: "customers" }
 );
 
 module.exports = mongoose.model("Customers", CustomerSchema, "customers");
